@@ -2,7 +2,7 @@ package bicrypto
 
 import (
 	"errors"
-	"github.com/dochean/tools/chain"
+	"github.com/dochean/tools/timedata"
 	"github.com/gofrs/uuid"
 	"sync"
 	"time"
@@ -18,15 +18,15 @@ type BiManager struct {
 	// map[id]bicrypto
 	bm map[string]BiCryptor
 	mu sync.RWMutex
-	tm *chain.TimeChain
+	tm *timedata.TimeChain
 	d time.Duration
 }
 
 func NewBiManager() *BiManager {
 	bi := &BiManager{
 		bm: make(map[string]BiCryptor),
-		tm: chain.NewTimeChain(),
-		d: EXPIRE_DURATION,
+		tm: timedata.NewTimeChain(),
+		d:  EXPIRE_DURATION,
 	}
 	go func() {
 		for {
